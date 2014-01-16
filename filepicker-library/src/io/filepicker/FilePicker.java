@@ -443,7 +443,7 @@ public class FilePicker extends Activity {
 		super.onCreate(savedInstanceState);
 		
 		//TODO Suggested patch
-		FilePickerAPI.setKey(getIntent().getStringExtra("api_key"));
+		FilePickerAPI.setKey("A0cWAh9zJTC7vnHP17ECWz");// getIntent().getStringExtra("api_key"));
 
 		if (!FilePickerAPI.isKeySet()) {
 			Toast.makeText(this, "No Filepicker.io API Key set!",

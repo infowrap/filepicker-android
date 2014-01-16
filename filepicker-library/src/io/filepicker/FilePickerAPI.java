@@ -104,7 +104,7 @@ public class FilePickerAPI {
 	}
 
 	private String getJSSessionWithMimetypes(String mimetype) {
-		return getJSSessionWithOption("\"mimetypes\": [\"" + mimetype + "\"]");
+		return getJSSessionWithOption("\"mimetypes\":[\"" + mimetype + "\"]");
 	}
 
 	private FilePickerAPI() {
@@ -336,23 +336,29 @@ public class FilePickerAPI {
 
 	public Folder getPath(String path, String mimetypes) throws AuthError {
 		debug("getPath path: " + path);
-		Folder cached = DataCache.getInstance().get(path + mimetypes);
-		if (cached != null)
-			return cached;
-		try {
-			HttpGet httpget = new HttpGet(FPBASEURL
-					+ "api/path"
-					+ pathUrlEncode(path)
-					+ "?format=info&js_session="
-					+ URLEncoder.encode(getJSSessionWithMimetypes(mimetypes),
-							"utf-8"));
-			String response = getStringFromNetworkRequest(httpget);
-			return parseFolder(response, path);
-		} catch (JSONException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if (path != "/Gallery/" && path != "/Camera/"){
+			Folder cached = DataCache.getInstance().get(path + mimetypes);
+			if (cached != null)
+				return cached;
+			try {
+				String getUrl = FPBASEURL
+						+ "api/path"
+						+ pathUrlEncode(path)
+						+ "?format=info&js_session="
+						+ URLEncoder.encode(getJSSessionWithMimetypes(mimetypes),
+								"utf-8");
+				System.out.println("GET URL ----");
+				System.out.println(getUrl);
+				HttpGet httpget = new HttpGet(getUrl);
+				String response = getStringFromNetworkRequest(httpget);
+				return parseFolder(response, path);
+			} catch (JSONException e) {
+				e.printStackTrace();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
+		
 		return null;
 	}
 

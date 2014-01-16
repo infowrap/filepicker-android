@@ -14,7 +14,7 @@ import io.filepicker.FilePickerAPI;
 public class MainActivity extends Activity {
 
     //TODO : Enter your API key here.
-    private static final String FILEPICKER_API_KEY = "your_api_key_here";
+    private static final String FILEPICKER_API_KEY = "A0cWAh9zJTC7vnHP17ECWz";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,6 +32,7 @@ public class MainActivity extends Activity {
 
     public void onClick(View view) {
         Intent intent = new Intent(this, FilePicker.class);
+        intent.putExtra("api_key", "A0cWAh9zJTC7vnHP17ECWz");
         startActivityForResult(intent, FilePickerAPI.REQUEST_CODE_GETFILE);
 
     }
